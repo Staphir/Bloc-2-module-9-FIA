@@ -1,0 +1,61 @@
+### Récupérer tous les pilotes
+GET http://localhost:8080/pilots
+Accept: application/json
+
+### Récupérer toutes les voitures
+GET http://localhost:8080/cars
+Accept: application/json
+
+### Récupérer une course par son ID
+@race_id = 5d6e7f80-1234-5678-9abc-def012345678
+GET http://localhost:8080/races/{{race_id}}
+
+
+### Créer un nouveau pilot
+POST http://localhost:8080/pilots
+Content-Type: application/json
+
+{
+  "name": "Charles Leclers"
+}
+
+### Créer une nouvelle voiture
+POST http://localhost:8080/cars
+Content-Type: application/json
+
+{
+  "name": "Mercedes",
+  "speed": 315
+}
+
+### Associer un pilote à une voiture
+@pilot_id = 3f2504e0-4f89-11d3-9a0c-0305e82c3301
+@car_id = 123e4567-e89b-12d3-a456-426614174000
+POST http://localhost:8080/pilots/{{pilot_id}}/associatePilotToCar/{{car_id}}
+
+### Associer un pilote à une voiture
+@pilot_id2 = 9a7b1c2d-8e4f-4f2a-bb9f-1a2d3e4f5678
+@car_id2 = 223e4567-e89b-12d3-a456-426614174001
+POST http://localhost:8080/pilots/{{pilot_id2}}/associatePilotToCar/{{car_id2}}
+
+### Créer une nouvelle course
+POST http://localhost:8080/races
+Content-Type: application/json
+
+{
+  "name": "24h du Mans",
+  "country": "France",
+  "start": false
+}
+
+### Associer un pilote à une course
+POST http://localhost:8080/races/{{race_id}}/associatePilot/{{pilot_id}}
+
+### Associer un pilote à une course
+POST http://localhost:8080/races/{{race_id}}/associatePilot/{{pilot_id2}}
+
+### Démarrer une course (avec vitesse et état)
+POST http://localhost:8080/races/{{race_id}}/startRace/310/true
+
+### Supprimer un pilote (via Paramètre de requête)
+DELETE http://localhost:8080/pilots?id={{pilot_id2}}

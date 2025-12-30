@@ -35,20 +35,21 @@ public class RaceServiceImpl implements RaceService {
 
     @Override
     public void startRace(Race race, Integer speed, Boolean start) {
-        race.setStart(start);
-        if (start) {
+        if (Boolean.TRUE.equals(start)) {
+            race.setStart(true);
             System.out.println("Begin Race !");
             race.getPilots().forEach(pilot -> {
                 Car car = pilot.getCar();
                 if (car != null && car.getSpeed() > speed) {
                     System.out.printf(
-                            "The pilot %s can participate in the race with his car %s",
+                            "The pilot %s can participate in the race with his car %s%n",
                             pilot.getName(),
                             car.getName()
                     );
                 }
             });
         } else {
+            race.setStart(false);
             System.out.println("End of race");
         }
         raceRepository.save(race);

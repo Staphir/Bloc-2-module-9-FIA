@@ -21,12 +21,12 @@ public class RaceController {
     private PilotService pilotService;
 
     @GetMapping("/{id}")
-    public Race findById(@RequestParam UUID id) {
+    public Race findById(@PathVariable UUID id) {
         return raceService.findById(id);
     }
 
     @PostMapping
-    @ResponseStatus(code = HttpStatus.ACCEPTED)
+    @ResponseStatus(code = HttpStatus.CREATED)
     public UUID save(@RequestBody Race race) {
         return raceService.save(race);
     }

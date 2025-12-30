@@ -41,7 +41,7 @@ public class PilotController {
 
     @PostMapping("/{idPilot}/associatePilotToCar/{idCar}")
     @ResponseStatus(code = HttpStatus.ACCEPTED)
-    public void associatePilotToCar(@RequestParam UUID idPilot, @RequestParam UUID idCar) {
+    public void associatePilotToCar(@PathVariable UUID idPilot, @PathVariable UUID idCar) {
         Pilot pilot = pilotService.findById(idPilot);
         Car car = carService.findById(idCar);
         pilotService.associatePilotToCar(pilot, car);

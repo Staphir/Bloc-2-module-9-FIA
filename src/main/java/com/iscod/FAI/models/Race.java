@@ -2,22 +2,24 @@ package com.iscod.FAI.models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.UuidGenerator;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
 @Setter
 @Entity
 @Table
+@AllArgsConstructor
+@NoArgsConstructor
 public class Race {
     @Id
-    @GeneratedValue(generator = "UUID")
-    @UuidGenerator
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(updatable = false, nullable = false)
     private UUID id;
 
@@ -27,12 +29,13 @@ public class Race {
 
     private Boolean start;
 
-    @OneToMany(mappedBy = "race", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "race", cascade = CascadeType.ALL)
     @JsonManagedReference
-    private Set<Pilot> pilots = new HashSet<>();
+    private List<Pilot> pilots = new ArrayList<>();
 
     public void associatePilot(Pilot pilot) {
-        pilots.add(pilot);
+        this.pilots.add(pilot);
+        pilot.setRace(this);
     }
 
 }
